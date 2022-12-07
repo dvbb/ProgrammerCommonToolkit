@@ -1,0 +1,22 @@
+## Ignore temporary files, build results
+
+# Visual Studio cache/options directory
+*.suo
+*.user
+*.tmp
+*.cache
+*.sln.docstates
+*.lock.json
+.vs/
+launch.json
+launchSettings.json
+
+# Visual Studio profiler
+*.psess
+*.vsp
+
+# Sensitive files
+*.keys
+*.pfx
+*.json.env
+*.bicep.env
