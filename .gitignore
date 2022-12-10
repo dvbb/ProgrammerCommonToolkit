@@ -10,6 +10,8 @@
 .vs/
 launch.json
 launchSettings.json
+src/*/*/bin
+src/*/*/obj
 
 # Visual Studio profiler
 *.psess
