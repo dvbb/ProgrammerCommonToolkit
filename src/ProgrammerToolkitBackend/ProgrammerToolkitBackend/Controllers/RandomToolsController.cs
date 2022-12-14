@@ -15,7 +15,7 @@ namespace ProgrammerToolkitBackend.Controllers
         public List<string> GetRandomIpv4Address(int count = 1)
         {
             ParameterValidator.ValidatePositiveNumber(count);
-            List<string> list = _randomToolsProvider.GetRandomIpv4Addresses(count);
+            var list = _randomToolsProvider.GetRandomIpv4Addresses(count);
             return list;
         }
 
@@ -24,7 +24,7 @@ namespace ProgrammerToolkitBackend.Controllers
         public List<string> GetRandomIpv6Address(int count = 1)
         {
             ParameterValidator.ValidatePositiveNumber(count);
-            List<string> list = _randomToolsProvider.GetRandomIpv6Addresses(count);
+            var list = _randomToolsProvider.GetRandomIpv6Addresses(count);
             return list;
         }
 
@@ -33,7 +33,7 @@ namespace ProgrammerToolkitBackend.Controllers
         public List<string> GetRandomPassword(int count = 1)
         {
             ParameterValidator.ValidatePositiveNumber(count);
-            List<string> list = _randomToolsProvider.GetRandomPasswords(count);
+            var list = _randomToolsProvider.GetRandomPasswords(count);
             return list;
         }
     }
