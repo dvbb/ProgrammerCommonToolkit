@@ -6,7 +6,7 @@ on:
       - feature/*
 
 jobs:
-  sync:
+  Init:
     runs-on: ubuntu-latest
     steps:
     - name: PrintName
@@ -14,3 +14,17 @@ jobs:
         name: "hi dvbb"
       run: |
         echo $name
+  Test-Window-2019:
+    runs-on: ubuntu-latest
+    steps:
+    - name: test1
+      run: |
+        dotnet test
+  Test-Linux-2019:
+    runs-on: ubuntu-latest
+    steps:
+    - name: test2
+      run: |
+        dotnet test
+
+
