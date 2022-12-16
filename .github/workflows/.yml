@@ -1,22 +1,25 @@
-name: .NET Core CI/CD Test
-on: push
+name: .NET
+
+on:
+  push:
+    branches: [ "main","feature/*" ]
+  pull_request:
+    branches: [ "main","feature/*" ]
+
 jobs:
-  docker:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 3.1.101
-    - name: Docker Build & Push to Docker Hub
-      uses: opspresso/action-docker@master
-      with:
-        args: --docker
-      env:
-        USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        DOCKERFILE: "Dockerfile"
-        IMAGE_NAME: "li2008kui/cicd-test"
-        TAG_NAME: "v0.0.1"
-        LATEST: "true"
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
