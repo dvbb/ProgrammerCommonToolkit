@@ -17,14 +17,15 @@ jobs:
   Test-Window-2019:
     runs-on: ubuntu-latest
     steps:
-    - name: test1
+    - name: Install dotnet env
       run: |
-        dotnet test
+        winget install Microsoft.DotNet.SDK.6
   Test-Linux-2019:
     runs-on: ubuntu-latest
     steps:
-    - name: test2
+    - name: install dotnet env
       run: |
-        dotnet test
-
-
+        winget install Microsoft.DotNet.SDK.6
+    - name: build
+      run: |
+        dotnet build
