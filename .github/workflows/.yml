@@ -3,14 +3,10 @@ name: .NET
 on:
   push:
     branches: [ "main","feature/*" ]
-  pull_request:
-    branches: [ "main","feature/*" ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -23,3 +19,26 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+  Test-Window-2019:
+    runs-on: windows-2019
+    steps:
+    - name: init
+      run: write-host "hi dvbb"
+  Test-Linux-2019:
+    runs-on: ubuntu-latest
+    steps:
+    - name: init
+      run: write-host "error"
+  Window-all:
+    runs-on: windows-2019
+    steps:
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3.0.3
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build
+    - name: Test
+      run: dotnet test
