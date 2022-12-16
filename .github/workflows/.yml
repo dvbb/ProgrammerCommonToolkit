@@ -15,13 +15,13 @@ jobs:
       run: |
         echo $name
   Test-Window-2019:
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
     steps:
     - name: Install dotnet env
       run: |
         winget install Microsoft.DotNet.SDK.6
   Test-Linux-2019:
-    runs-on: ubuntu-latest
+    runs-on: windows-2019
     steps:
     - name: install dotnet env
       run: |
