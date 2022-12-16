@@ -4,14 +4,13 @@ on:
     branches:
       - main
       - feature/*
+
 jobs:
-  build:
+  sync:
     runs-on: ubuntu-latest
     steps:
-    - name: Build Project
+    - name: PrintName
+      env:
+        name: "hi dvbb"
       run: |
-        dotnet build
-    - name: Run all unit tests
-        needs: job1
-      run: |
-        dotnet test
+        echo $name
