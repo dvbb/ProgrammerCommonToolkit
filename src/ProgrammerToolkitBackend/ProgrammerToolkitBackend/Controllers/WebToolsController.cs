@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using ProgrammerToolkit.Core.Errors;
 using ProgrammerToolkitBackend.IProvider;
 using ProgrammerToolkitBackend.Provider;
+using ProgrammerToolkitBackend.Response;
 
 namespace ProgrammerToolkitBackend.Controllers
 {
@@ -9,17 +12,34 @@ namespace ProgrammerToolkitBackend.Controllers
     [ApiController]
     public class WebToolsController : ControllerBase
     {
-        public IWebToolsProvider _webToolsProvider;
-        public WebToolsController(IWebToolsProvider webToolsProvider)
+        private IWebToolsProvider _webToolsProvider;
+        private IErrorMap _errorMap;
+        public WebToolsController(IWebToolsProvider webToolsProvider,
+                                    IErrorMap errorMap)
         {
             _webToolsProvider= webToolsProvider;
+            _errorMap= errorMap;
         }
 
-        [HttpPost("decodejwt")]
-        public async Task<IActionResult> DecodeJwtToken(string token)
+        [Route("decodejwt"),HttpPost]
+        public async Task<IActionResult> DecodeJwtToken(
+            [FromBody]string token)
         {
-            var claims = await _webToolsProvider.GetWebTools(token);
-            return StatusCode(StatusCodes.Status200OK, claims);
+            if (string.IsNullOrEmpty(token))
+            {
+                var errorResponse = _errorMap.CreateErrorResponse(ErrorCode.JWT_NULL_ERROR);
+                return BadRequest(errorResponse);
+            }
+            try
+            {
+                var claims = await _webToolsProvider.GetWebTools(token);
+                return StatusCode(StatusCodes.Status200OK, claims);
+            }
+            catch(Exception ex)
+            {
+                var errorResponse = _errorMap.CreateErrorResponse(ErrorCode.JWT_DECODE_ERROR);
+                return StatusCode(StatusCodes.Status409Conflict, errorResponse);
+            }
         }
     }
 }

@@ -21,6 +21,6 @@ namespace ProgrammerToolkit.Core.Errors
             Errors.AddRange(errors);
         }
 
-        public List<ErrorInfo> Errors { get; set; }
+        public List<ErrorInfo> Errors = new List<ErrorInfo>();
     }
 }
