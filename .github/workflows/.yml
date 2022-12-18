@@ -1,0 +1,56 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Build&Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  Window2019:
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Build Solution
+      run: |
+        eng/scripts/Build-Solutions.ps1
+    - name: Run tests
+      run: |
+        eng/scripts/Test_Solutions.ps1
+  Ubuntu:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Build Solution
+      run: |
+        dotnet restore src/ProgrammerToolkitBackend
+        dotnet build src/ProgrammerToolkitBackend
+    - name: Run tests
+      run: |
+        dotnet test src/ProgrammerToolkitBackend
+  MacOs:
+    runs-on: macos-10.15
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Build Solution
+      run: |
+        dotnet restore src/ProgrammerToolkitBackend
+        dotnet build src/ProgrammerToolkitBackend
+    - name: Run tests
+      run: |
+        dotnet test src/ProgrammerToolkitBackend
