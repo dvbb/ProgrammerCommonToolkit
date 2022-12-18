@@ -24,7 +24,7 @@ jobs:
     - name: Run tests
       run: |
         eng/scripts/Test_Solutions.ps1
-  Ubuntu2004:
+  Ubuntu:
     runs-on: ubuntu-20.04
     steps:
     - uses: actions/checkout@v3
@@ -39,8 +39,22 @@ jobs:
     - name: Run tests
       run: |
         dotnet test src/ProgrammerToolkitBackend
-
-  MacOs1015:
+  CentOS:
+    runs-on: centos-7
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Build Solution
+      run: |
+        dotnet restore src/ProgrammerToolkitBackend
+        dotnet build src/ProgrammerToolkitBackend
+    - name: Run tests
+      run: |
+        dotnet test src/ProgrammerToolkitBackend
+  MacOs:
     runs-on: macos-10.15
     steps:
     - uses: actions/checkout@v3
