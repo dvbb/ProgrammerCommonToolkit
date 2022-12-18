@@ -21,6 +21,3 @@ jobs:
     - name: Build Solution
       run: |
        ../../eng/scripts/Build-Solutions.ps1
-    - name: Run tests
-      run: |
-        ../../eng/scripts/Test_Solutions.ps1
