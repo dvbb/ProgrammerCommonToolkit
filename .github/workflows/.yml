@@ -10,6 +10,24 @@ on:
     branches: [ "main" ]
 
 jobs:
+  empty:
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Solution
+      run: |
+       write-host "hello"
+  SayHello:
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Build Solution
+      run: |
+       ../../eng/scripts/Say-hello.ps1
   Window2019:
     runs-on: windows-2019
     steps:
@@ -18,4 +36,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-
+    - name: Build Solution
+      run: |
+       ../../eng/scripts/Build-Solutions.ps1
+    - name: Run tests
+      run: |
+        ../../eng/scripts/Test_Solutions.ps1
