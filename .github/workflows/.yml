@@ -33,9 +33,11 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Build Solution
-      run: eng/scripts/Build-Solutions.ps1
+      run: |
+        eng/scripts/Build-Solutions.ps1
     - name: Run tests
-      run: eng/scripts/Test_Solutions.ps1
+      run: |
+        eng/scripts/Test_Solutions.ps1
   MacOs:
     runs-on: macos-10.15
     steps:
@@ -45,6 +47,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Build Solution
-      run: eng/scripts/Build-Solutions.ps1
+      run: |
+        eng/scripts/Build-Solutions.ps1
     - name: Run tests
-      run: eng/scripts/Test_Solutions.ps1
+      run: |
+        eng/scripts/Test_Solutions.ps1
