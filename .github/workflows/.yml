@@ -18,3 +18,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    - name: Build Solution
+      pwsh: ../../eng/scripts/Build-Solutions.ps1
+    - name: Run tests
+      pwsh: ../../eng/scripts/Test_Solutions.ps1
