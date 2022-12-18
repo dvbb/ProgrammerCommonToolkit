@@ -27,7 +27,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: Build Solution
       with: |
-       ../../eng/scripts/Say-hello.ps1
+        eng/scripts/Say-hello.ps1
   Window2019:
     runs-on: windows-2019
     steps:
