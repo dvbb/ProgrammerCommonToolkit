@@ -5,10 +5,12 @@ name: .NET
 
 on:
   push:
-    branches: [ "main","feature/*" ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  build:
+  UbuntuLatest:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -16,3 +18,32 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    - name: Build Solution
+      pwsh: ../../eng/scripts/Build-Solutions.ps1
+    - name: Run tests
+      pwsh: ../../eng/scripts/Test_Solutions.ps1
+  Window2019:
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Build Solution
+      pwsh: ../../eng/scripts/Build-Solutions.ps1
+    - name: Run tests
+      pwsh: ../../eng/scripts/Test_Solutions.ps1
+  MacOs1015:
+    runs-on: macos-10.15
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: Build Solution
+      pwsh: ../../eng/scripts/Build-Solutions.ps1
+    - name: Run tests
+      pwsh: ../../eng/scripts/Test_Solutions.ps1
+
