@@ -26,7 +26,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Build Solution
-      script: |
+      with: |
        ../../eng/scripts/Say-hello.ps1
   Window2019:
     runs-on: windows-2019
@@ -37,8 +37,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Build Solution
-      script: |
+      run: |
        ../../eng/scripts/Build-Solutions.ps1
     - name: Run tests
-      script: |
+      run: |
         ../../eng/scripts/Test_Solutions.ps1
