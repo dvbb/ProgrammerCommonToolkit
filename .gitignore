@@ -8,8 +8,8 @@
 *.sln.docstates
 *.lock.json
 .vs/
-src/*/*/bin
-src/*/*/obj
+src/*/bin
+src/*/obj
 
 # Visual Studio profiler
 *.psess
