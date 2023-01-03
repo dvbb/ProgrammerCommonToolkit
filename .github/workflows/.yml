@@ -20,11 +20,11 @@ jobs:
         dotnet-version: 6.0.x
     - name: Build Solution
       run: |
-        dotnet restore .\src
-        dotnet build .\src
+        dotnet restore src
+        dotnet build src
     - name: Run tests
       run: |
-        dotnet test .\src
+        dotnet test src
   Ubuntu:
     runs-on: ubuntu-20.04
     steps:
@@ -35,11 +35,11 @@ jobs:
         dotnet-version: 6.0.x
     - name: Build Solution
       run: |
-        dotnet restore .\src
-        dotnet build .\src
+        dotnet restore src
+        dotnet build src
     - name: Run tests
       run: |
-        dotnet test .\src
+        dotnet test src
   MacOs:
     runs-on: macos-10.15
     steps:
@@ -50,8 +50,8 @@ jobs:
         dotnet-version: 6.0.x
     - name: Build Solution
       run: |
-        dotnet restore .\src
-        dotnet build .\src
+        dotnet restore src
+        dotnet build src
     - name: Run tests
       run: |
-        dotnet test .\src
+        dotnet test src
