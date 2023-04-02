@@ -8,7 +8,7 @@ namespace ProgrammerToolkitBackend.Provider
 {
     public class WebToolsProvider: IWebToolsProvider
     {
-        public async Task<string> GetWebTools(string token)
+        public async Task<string> DecodeJwtToken(string token)
         {
             var handler = new JwtSecurityTokenHandler();
             try

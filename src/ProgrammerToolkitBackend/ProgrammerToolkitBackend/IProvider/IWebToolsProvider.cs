@@ -2,6 +2,6 @@
 {
     public interface IWebToolsProvider
     {
-        Task<string> GetWebTools(string token);
+        Task<string> DecodeJwtToken(string token);
     }
 }
