@@ -1,10 +1,12 @@
-﻿namespace ProgrammerToolkitBackend.Provider
+﻿using ProgrammerToolkit.Backend.IProvider;
+
+namespace ProgrammerToolkitBackend.Provider
 {
-    public class RandomToolsProvider
+    public class RandomToolsProvider : IRandomToolsProvider
     {
         private readonly Random _random = new Random();
 
-        public List<string> GetRandomIpv4Addresses(int count)
+        public async Task<List<string>> GetRandomIpv4Addresses(int count)
         {
             var list = new List<string>();
             for (int i = 0; i < count; i++)
@@ -16,7 +18,7 @@
 
         private string GetRandomIpv4Address() => $"{_random.Next(255)}.{_random.Next(255)}.{_random.Next(255)}.{_random.Next(255)}";
 
-        public List<string> GetRandomIpv6Addresses(int count)
+        public async Task<List<string>> GetRandomIpv6Addresses(int count)
         {
             var list = new List<string>();
             for (int i = 0; i < count; i++)
@@ -28,7 +30,7 @@
 
         private string GetRandomIpv6Address() => $"{_random.Next(65536).ToString("X")}:{_random.Next(65536).ToString("X")}:{_random.Next(65536).ToString("X")}:{_random.Next(65536).ToString("X")}:{_random.Next(65536).ToString("X")}:{_random.Next(65536).ToString("X")}:{_random.Next(65536).ToString("X")}:{_random.Next(65536).ToString("X")}";
 
-        public List<string> GetRandomPasswords(int count)
+        public async Task<List<string>> GetRandomPasswords(int count)
         {
             var list = new List<string>();
             for (int i = 0; i < count; i++)
