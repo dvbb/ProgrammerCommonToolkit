@@ -1,0 +1,10 @@
+POST https://localhost:51832/api/gpt/chat
+Content-Type: application/json
+
+{"Message":"hello gpt"}
+###
+POST https://localhost:51832/api/gpt/chat
+Content-Type: application/json
+
+{"Message":"第二个回话"}
+
