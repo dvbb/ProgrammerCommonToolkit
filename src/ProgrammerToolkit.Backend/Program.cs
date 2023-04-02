@@ -1,3 +1,5 @@
+using ChatGptBackEnd.GptProvider;
+using ChatGptBackEnd.GptRepository;
 using ProgrammerToolkit.Backend.IProvider;
 using ProgrammerToolkit.Core.Errors;
 using ProgrammerToolkitBackend.IProvider;
@@ -20,6 +22,8 @@ builder.Services.AddSingleton<IErrorMap, ErrorMapBase>();
 #endregion
 #region Scoped
 builder.Services.AddScoped<IWebToolsProvider, WebToolsProvider>();
+builder.Services.AddScoped<IGptMessageProvider, GptMessageProvider>();
+builder.Services.AddScoped<ICallGptRepository,CallGptRepository>();
 builder.Services.AddScoped<IRandomToolsProvider, RandomToolsProvider>();
 #endregion
 

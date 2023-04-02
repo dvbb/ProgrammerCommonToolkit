@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ChatGptBackEnd\ChatGptBackEnd.csproj" />
     <ProjectReference Include="..\ProgrammerToolkit.Core\ProgrammerToolkit.Core.csproj" />
   </ItemGroup>
 

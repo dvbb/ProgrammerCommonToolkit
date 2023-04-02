@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Newtonsoft.Json.Linq;
 using ProgrammerToolkit.Core.Errors;
 using ProgrammerToolkitBackend.IProvider;
 using ProgrammerToolkitBackend.Provider;
 using ProgrammerToolkitBackend.Response;
+using System.Security.Claims;
 
 namespace ProgrammerToolkitBackend.Controllers
 {
@@ -32,7 +34,7 @@ namespace ProgrammerToolkitBackend.Controllers
             }
             try
             {
-                var claims = await _webToolsProvider.GetWebTools(token);
+                var claims = await _webToolsProvider.DecodeJwtToken(token);
                 return StatusCode(StatusCodes.Status200OK, claims);
             }
             catch(Exception ex)
@@ -40,6 +42,19 @@ namespace ProgrammerToolkitBackend.Controllers
                 var errorResponse = _errorMap.CreateErrorResponse(ErrorCode.JWT_DECODE_ERROR);
                 return StatusCode(StatusCodes.Status409Conflict, errorResponse);
             }
+        }
+        [Route("encodejwt"), HttpPost]
+        public async Task<IActionResult> EncodeJwtToken(
+            [FromBody]string jsonClaims)
+        {
+            string alg = "";
+            if (string.IsNullOrEmpty(jsonClaims)|| string.IsNullOrEmpty(alg))
+            {
+                var errorResponse = _errorMap.CreateErrorResponse(ErrorCode.JWT_NULL_ERROR);
+                return BadRequest(errorResponse);
+            }
+            return StatusCode(StatusCodes.Status200OK, "");
+
         }
     }
 }
