@@ -15,7 +15,7 @@ namespace ChatGptBackEnd.GptProvider
     {
         Task<UserMessageResponse> SendGptMessage(UserMessageRequest message);
     }
-    public class GptMessageProvider:IGptMessageProvider
+    public class GptMessageProvider : IGptMessageProvider
     {
         public readonly ICallGptRepository _callGptRepository;
         public GptMessageProvider(ICallGptRepository callGptRepository)
@@ -24,11 +24,11 @@ namespace ChatGptBackEnd.GptProvider
         }
         public async Task<UserMessageResponse> SendGptMessage(UserMessageRequest message)
         {
-            message.Role=Role.user.ToString();
+            message.Role = Role.user.ToString();
             var gptMetaRequest = new GptMetaRequest
             {
                 Model = Common.Gpt35Model,
-                Messages=new List<GptMessage>()
+                Messages = new List<GptMessage>()
                 {
                     new GptMessage
                     {
@@ -37,7 +37,7 @@ namespace ChatGptBackEnd.GptProvider
                     }
                 }
             };
-            var gptMetaResponse=await _callGptRepository.MakeContent(gptMetaRequest);
+            var gptMetaResponse = await _callGptRepository.MakeContent(gptMetaRequest);
             var response = new UserMessageResponse
             {
                 Message = gptMetaResponse.Choices[0].Message.Content

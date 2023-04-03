@@ -21,7 +21,7 @@ namespace ProgrammerToolkitBackend.Controllers
         {
             try
             {
-                var response =await _gptMessageProvider.SendGptMessage(request);
+                var response = await _gptMessageProvider.SendGptMessage(request);
                 return StatusCode(StatusCodes.Status200OK, response);
             }
             catch (Exception ex)

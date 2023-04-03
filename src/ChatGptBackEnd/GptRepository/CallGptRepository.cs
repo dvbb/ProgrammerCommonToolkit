@@ -16,7 +16,7 @@ namespace ChatGptBackEnd.GptRepository
     {
         Task<GptMetaResponse> MakeContent(GptMetaRequest request);
     }
-    public class CallGptRepository:ICallGptRepository
+    public class CallGptRepository : ICallGptRepository
     {
         public async Task<GptMetaResponse> MakeContent(GptMetaRequest request)
         {
@@ -25,8 +25,7 @@ namespace ChatGptBackEnd.GptRepository
                 var jsonReq = JsonConvert.SerializeObject(request);
                 var url = "https://api.openai.com/v1/chat/completions";
                 var apiKey = Environment.GetEnvironmentVariable("OpenAIApiKey");
-
-                using (var client=new HttpClient())
+                using (var client = new HttpClient())
                 {
                     var content = new StringContent(jsonReq, Encoding.UTF8, "application/json");
                     client.DefaultRequestHeaders.Add(Common.Authorization, $"Bearer {apiKey}");
