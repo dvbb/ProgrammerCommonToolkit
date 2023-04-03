@@ -6,6 +6,7 @@ using ProgrammerToolkit.Core.Errors;
 namespace ProgrammerToolkitBackend.Controllers
 {
     [Route("api/gpt")]
+    [ApiController]
     public class GptController : ControllerBase
     {
         private IGptMessageProvider _gptMessageProvider;
@@ -14,6 +15,7 @@ namespace ProgrammerToolkitBackend.Controllers
             _gptMessageProvider = gptMessageProvider;
         }
 
+        [HttpPost]
         [Route("chat")]
         public async Task<IActionResult> Chat([FromBody] UserMessageRequest request)
         {
