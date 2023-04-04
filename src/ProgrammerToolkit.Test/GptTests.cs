@@ -71,7 +71,11 @@ namespace ProgrammerToolkit.Test
             Console.WriteLine("----------------------");
 
             //2
-            request.Messages[0].Content = "我正在使用c#开发，HttpClient中如何加入session id,保持GPT始终在同一个会话";
+            request.Messages.Add(new GptMessage()
+            {
+                Role = Role.user.ToString(),
+                Content = "Hi,GPT,可以给我讲一个笑话吗"
+            });
             //request.Messages[0].Content = "我正在使用c#开发，HttpClient中如何加入session id";
             //request.Messages[0].Content = "我正在使用c#开发，如何获取GPT服务器返回的session id";
             jsonReq = JsonConvert.SerializeObject(request);

@@ -14,7 +14,7 @@ namespace ChatGptBackEnd.GptRepository
 {
     public interface ICallGptRepository
     {
-        Task<GptMetaResponse> MakeContent(GptMetaRequest request);
+        Task<GptMetaResponse> MakeContent(GptMetaRequest request); 
     }
     public class CallGptRepository : ICallGptRepository
     {
