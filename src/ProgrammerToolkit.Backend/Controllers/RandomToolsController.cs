@@ -9,6 +9,7 @@ using System.Diagnostics;
 
 namespace ProgrammerToolkitBackend.Controllers
 {
+    [Route("api/randomtool")]
     [ApiController]
     public class RandomToolsController : ControllerBase
     {
