@@ -25,6 +25,7 @@ namespace ProgrammerToolkit.Test
         }
 
         [Test]
+        [Ignore("TODO: Need to investigate how to use DI in test project")]
         public async Task ChatTest()
         {
             UserMessageRequest request = new UserMessageRequest
