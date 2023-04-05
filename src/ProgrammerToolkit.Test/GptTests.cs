@@ -38,6 +38,7 @@ namespace ProgrammerToolkit.Test
         }
 
         [Test]
+        [Ignore("TODO: Need to add environment variable to github action env")]
         public async Task SameSessionTest()
         {
             GptMetaRequest request = new GptMetaRequest();
