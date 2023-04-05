@@ -20,12 +20,11 @@ builder.Services.AddSwaggerGen();
 
 #region Singleton
 builder.Services.AddSingleton<IErrorMap, ErrorMapBase>();
-builder.Services.AddSingleton<GptController>();
+builder.Services.AddSingleton<IGptMessageProvider, GptMessageProvider>();
+builder.Services.AddSingleton<ICallGptRepository, CallGptRepository>();
 #endregion
 #region Scoped
 builder.Services.AddScoped<IWebToolsProvider, WebToolsProvider>();
-builder.Services.AddScoped<IGptMessageProvider, GptMessageProvider>();
-builder.Services.AddScoped<ICallGptRepository,CallGptRepository>();
 builder.Services.AddScoped<IRandomToolsProvider, RandomToolsProvider>();
 #endregion
 

@@ -15,14 +15,16 @@ namespace ChatGptBackEnd.GptProvider
     public interface IGptMessageProvider
     {
         Task<UserMessageResponse> SendGptMessage(UserMessageRequest message);
-        Task<GptMetaRequest> SendGptMessage(GptMetaRequest sessionMessage, string content);
+        Task<UserMessageResponse> SendGptMessage(string content, bool isNewSession = false);
     }
     public class GptMessageProvider : IGptMessageProvider
     {
         public readonly ICallGptRepository _callGptRepository;
+        private GptMetaRequest _sessionMessage;
         public GptMessageProvider(ICallGptRepository callGptRepository)
         {
             _callGptRepository = callGptRepository;
+            _sessionMessage = new GptMetaRequest();
         }
         public async Task<UserMessageResponse> SendGptMessage(UserMessageRequest message)
         {
@@ -47,21 +49,25 @@ namespace ChatGptBackEnd.GptProvider
             return response;
         }
 
-        public async Task<GptMetaRequest> SendGptMessage(GptMetaRequest sessionMessage, string content)
+        public async Task<UserMessageResponse> SendGptMessage(string content, bool isNewSession = false)
         {
+            if (isNewSession)
+            {
+                _sessionMessage = new GptMetaRequest();
+            }
             GptMessage userMessage = new GptMessage()
             {
                 Role = Role.user.ToString(),
                 Content = content
             };
-            sessionMessage.Messages.Add(userMessage);
+            _sessionMessage.Messages.Add(userMessage);
 
             // send a http request to GPT server
             using (var client = new HttpClient())
             {
                 var apiKey = Environment.GetEnvironmentVariable("OpenAIApiKey");
                 client.DefaultRequestHeaders.Add(Common.Authorization, $"Bearer {apiKey}");
-                var httpContent = new StringContent(JsonConvert.SerializeObject(sessionMessage), Encoding.UTF8, "application/json");
+                var httpContent = new StringContent(JsonConvert.SerializeObject(_sessionMessage), Encoding.UTF8, "application/json");
                 var httpResponse = await client.PostAsync("https://api.openai.com/v1/chat/completions", httpContent);
                 if (httpResponse.IsSuccessStatusCode)
                 {
@@ -74,10 +80,14 @@ namespace ChatGptBackEnd.GptProvider
                         Role = Role.assistant.ToString(),
                         Content = gptMetaResponse.Choices.First().Message.Content
                     };
-                    sessionMessage.Messages.Add(assistantMessage);
+                    _sessionMessage.Messages.Add(assistantMessage);
                 }
             }
-            return sessionMessage;
+            UserMessageResponse userMessageResponse = new UserMessageResponse()
+            {
+                Message = _sessionMessage.Messages.Last().Content
+            };
+            return userMessageResponse;
         }
     }
 }

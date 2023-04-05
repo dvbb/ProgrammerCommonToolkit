@@ -11,11 +11,9 @@ namespace ProgrammerToolkitBackend.Controllers
     public class GptController : ControllerBase
     {
         private IGptMessageProvider _gptMessageProvider;
-        private GptMetaRequest _sessionMessage;
         public GptController(IGptMessageProvider gptMessageProvider)
         {
             _gptMessageProvider = gptMessageProvider;
-            _sessionMessage = new GptMetaRequest();
         }
 
         [HttpPost]
@@ -39,9 +37,8 @@ namespace ProgrammerToolkitBackend.Controllers
         {
             try
             {
-                _sessionMessage = new GptMetaRequest();
-                _sessionMessage = await _gptMessageProvider.SendGptMessage(_sessionMessage, content);
-                return StatusCode(StatusCodes.Status200OK, _sessionMessage.Messages.Last().Content);
+                var response = await _gptMessageProvider.SendGptMessage(content, true);
+                return StatusCode(StatusCodes.Status200OK, response);
             }
             catch (Exception ex)
             {
@@ -55,8 +52,8 @@ namespace ProgrammerToolkitBackend.Controllers
         {
             try
             {
-                _sessionMessage = await _gptMessageProvider.SendGptMessage(_sessionMessage, content);
-                return StatusCode(StatusCodes.Status200OK, _sessionMessage.Messages.Last().Content);
+                var response = await _gptMessageProvider.SendGptMessage(content);
+                return StatusCode(StatusCodes.Status200OK, response);
             }
             catch (Exception ex)
             {
