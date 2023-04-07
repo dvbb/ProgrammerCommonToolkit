@@ -1,7 +1,9 @@
 import openai
+import os
 # pip install --upgrade openai
 
 api_key = "<your-api-key>"
+api_key = os.getenv('OpenAIApiKey')
 
 openai.api_key = api_key
 
@@ -17,7 +19,7 @@ def main():
     messages = [{"role": "user","content":""}]
     while 1:
         try:
-            text = input('你：')
+            text = input('[You]：')
             if text == 'quit':
                 break
 
@@ -26,7 +28,8 @@ def main():
 
             text = askChatGPT(messages)
             d = {"role":"assistant","content":text}
-            print('ChatGPT：'+text+'\n')
+            print('\n[GPT]：'+text+'\n')
+            print('--------------------------------\n')
             messages.append(d)
         except:
             messages.pop()
